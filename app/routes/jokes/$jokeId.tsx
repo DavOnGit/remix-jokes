@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData } from "remix";
+import { useLoaderData } from "remix";
 import { useParams, useCatch, redirect } from "remix";
 import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import type { Joke } from "@prisma/client";
@@ -12,7 +12,7 @@ export const meta: MetaFunction = ({
 }: {
   data: LoaderData | undefined;
 }) => {
-  if (!data) {
+  if (!data?.joke) {
     return {
       title: "No joke",
       description: "No joke found",

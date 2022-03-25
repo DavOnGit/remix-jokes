@@ -21,7 +21,7 @@
     "cross-env": "^7.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.2.2"
+    "remix": "^1.2.2",
     "remix-crash": "^0.1.2"
   },
   "devDependencies": {
@@ -29,7 +29,9 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.26.1",
     "esbuild-register": "^3.3.2",
+    "patch-package": "^6.4.7",
     "prisma": "^3.10.0",
     "typescript": "^4.5.5"
   },

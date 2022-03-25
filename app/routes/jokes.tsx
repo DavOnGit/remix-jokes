@@ -18,6 +18,7 @@ type LoaderData = {
 export const loader: LoaderFunction = async ({
   request,
 }) => {
+  //throw new Error("stfghdhg");
   const jokeListItems = await db.joke.findMany({
     take: 5,
     orderBy: { createdAt: "desc" },
@@ -33,6 +34,7 @@ export const loader: LoaderFunction = async ({
 };
 
 export default function JokesRoute() {
+  throw new Error("stfghdhg");
   const data = useLoaderData<LoaderData>();
 
   return (

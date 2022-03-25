@@ -1,5 +1,6 @@
 import type { LinksFunction, MetaFunction } from "remix";
 import { Links, LiveReload, Outlet, Meta, Scripts, useCatch } from "remix";
+import { DevErrorBoundary } from "remix-crash";
 
 import globalStylesUrl from "./styles/global.css";
 import globalMediumStylesUrl from "./styles/global-medium.css";
@@ -87,13 +88,19 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  // With this you'll get even server-side errors logged in the browser's console 🤯
-  console.error(error);
+  if (process.env.NODE_ENV === "development") {
+    // With this you'll get even server-side errors logged in the browser's console 🤯
+    console.group('[Root Error Boundary]:');
+    console.warn(error);
+    console.groupEnd();
+
+    return <DevErrorBoundary error={error} />;
+  }
 
   return (
     <Document title="Uh-oh!">
       <div className="error-container">
-        <h1>App Error</h1>
+        <h1 className="glitch" title="App Error">App Error</h1>
         <pre>{error.message}</pre>
       </div>
     </Document>

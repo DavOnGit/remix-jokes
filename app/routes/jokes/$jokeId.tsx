@@ -118,9 +118,14 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-
   const { jokeId } = useParams();
+
+  if (process.env.NODE_ENV === "development") {
+    console.group('[$jokeId Error Boundary]: ' + jokeId)
+    console.error(error);
+    console.groupEnd();
+  }
+
   return (
     <div className="error-container">
       There was an error loading joke by the id {jokeId}. Sorry.

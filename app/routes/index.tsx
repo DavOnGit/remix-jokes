@@ -23,7 +23,7 @@ export default function Index() {
 
   return (
     <div className="container">
-      <div className="content">
+      <div className="content spin">
         <h1>
           Remix <span>Jokes!</span>
         </h1>

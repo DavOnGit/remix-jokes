@@ -5,7 +5,10 @@
  */
 
 body {
-  background-image: var(--gradient-background);
+  background-image: url("/background-texture.png"), var(--gradient-background);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 2184px 996px, 100% 100%;
+  background-position: center top, center top;
 }
 
 .container {
@@ -37,8 +40,7 @@ h1 span {
   font-size: 4.5rem;
   line-height: 1;
   text-transform: uppercase;
-  text-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5), 0 5px 0
-      rgba(0, 0, 0, 0.75);
+  text-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5), 0 5px 0 rgba(0, 0, 0, 0.75);
 }
 
 nav ul {
@@ -71,5 +73,81 @@ nav ul a:hover {
 @media screen and (min-width: 1024px) {
   h1 span {
     font-size: 8rem;
+  }
+}
+
+/* Hero animation */
+.spin {
+  transform: rotateY(-90deg);
+  animation: spin 1s ease-in-out 0.3s forwards;
+}
+
+@keyframes spin {
+  0%{
+    transform: rotateY(-90deg);
+  }
+  100%{
+    transform: rotateY(0deg);
+  }
+}
+
+/* Glitch text animation */
+.glitch {
+  position: relative;
+  animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch{
+  2%,64%{
+    transform: translate(2px,0) skew(0deg);
+  }
+  4%,60%{
+    transform: translate(-2px,0) skew(0deg);
+  }
+  62%{
+    transform: translate(0,0) skew(5deg);
+  }
+}
+
+.glitch:before,
+.glitch:after{
+  content: attr(title);
+  position: absolute;
+  left: 0;
+}
+
+.glitch:before{
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop{
+  2%,64%{
+    transform: translate(2px,-2px);
+  }
+  4%,60%{
+    transform: translate(-2px,2px);
+  }
+  62%{
+    transform: translate(13px,-1px) skew(-13deg);
+  }
+}
+
+.glitch:after{
+  animation: glitchBotom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBotom{
+  2%,64%{
+    transform: translate(-2px,0);
+  }
+  4%,60%{
+    transform: translate(-2px,0);
+  }
+  62%{
+    transform: translate(-22px,5px) skew(21deg);
   }
 }

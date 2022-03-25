@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import type { LinksFunction, MetaFunction } from "remix";
-import { Links, LiveReload, Outlet, Meta, Scripts, useCatch } from "remix";
+import { Links, LiveReload, Outlet, Meta, Scripts, useCatch, useTransition } from "remix";
+import NProgress from "nprogress";
+import nProgressStyles from "nprogress/nprogress.css";
 
 import globalStylesUrl from "./styles/global.css";
 import globalMediumStylesUrl from "./styles/global-medium.css";
@@ -21,6 +24,10 @@ export const links: LinksFunction = () => {
       href: globalLargeStylesUrl,
       media: "screen and (min-width: 1024px)",
     },
+    {
+      rel: "stylesheet",
+      href: nProgressStyles
+    }
   ];
 };
 
@@ -63,6 +70,16 @@ function Document({
 }
 
 export default function App() {
+  let transition = useTransition();
+
+  useEffect(() => {
+    // when the state is idle then we can to complete the progress bar
+    if (transition.state === "idle") NProgress.done();
+    // and when it's something else it means it's either submitting a form or
+    // waiting for the loaders of the next location so we start it
+    else NProgress.start();
+  }, [transition.state]);
+
   return (
     <Document>
       <Outlet />
@@ -89,6 +106,8 @@ export function CatchBoundary() {
 export function ErrorBoundary({ error }: { error: Error }) {
   // With this you'll get even server-side errors logged in the browser's console 🤯
   console.error(error);
+  // Stop the transition loader
+  NProgress.done()
 
   return (
     <Document title="Uh-oh!">

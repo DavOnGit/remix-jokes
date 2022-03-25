@@ -7,8 +7,8 @@
 body {
   background-image: url("/background-texture.png"), var(--gradient-background);
   background-repeat: no-repeat, no-repeat;
-  background-size: 2184px 996px, 100% 100%;
-  background-position: center top, center top;
+  background-size: cover, 100% 100%;
+  background-position: center center, center top;
 }
 
 .container {
